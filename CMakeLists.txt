@@ -51,5 +51,4 @@ include(CompileBoost)
 find_package(Threads REQUIRED)
 
 add_subdirectory(flow)
-add_subdirectory(flowmq)
 
