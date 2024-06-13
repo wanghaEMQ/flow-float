@@ -34,3 +34,27 @@ ninja
 ```
 ./flowxxx/flowxxx
 ```
+
+## Practice on ubuntu22.04
+
+```
+apt install vim g++ gcc git make ninja-build mono-devel libssl-dev libz-dev libbz2-dev libzstd-dev
+
+# Install cmake
+wget https://github.com/Kitware/CMake/releases/download/v3.29.3/cmake-3.29.3-linux-x86_64.sh
+bash ./cmake-3.29.3-linux-x86_64.sh --skip-license --exclude-subdir --prefix=/usr/local
+
+# Install boost static libraries
+cd boost_1_78_0
+./bootstrap.sh
+./b2 link=static --with-iostreams install
+
+git clone https://github.com/wanghaEMQ/flow-float.git
+cd flow-float/
+cp -r ~/flowxxx ./flowxxx
+echo "add_subdirectory(flowxxx)" >> ./CMakeLists.txt
+mkdir -p build && cd build
+ninja -j4
+```
+
+
