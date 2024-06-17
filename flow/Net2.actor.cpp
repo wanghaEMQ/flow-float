@@ -669,6 +669,20 @@ public:
 		return res;
 	}
 
+    void set_multicast_group(NetworkAddress const& laddr, NetworkAddress const& maddr) override {
+        boost::system::error_code ec;
+        socket.set_option(boost::asio::ip::udp::socket::reuse_address(true), ec);
+        boost::asio::ip::address bladdr =
+            boost::asio::ip::address::from_string(laddr.ip.toString(), ec);
+        boost::asio::ip::address bmaddr =
+            boost::asio::ip::address::from_string(maddr.ip.toString(), ec);
+        printf("l %s m %s\n", laddr.ip.toString().c_str(), maddr.ip.toString().c_str());
+        printf("ec %s\n", ec.what().c_str());
+        socket.set_option(boost::asio::ip::multicast::join_group(
+                    bmaddr.to_v4(), bladdr.to_v4()), ec);
+        printf("ec %s\n", ec.what().c_str());
+    }
+
 	void bind(NetworkAddress const& addr) override {
 		boost::system::error_code ec;
 		socket.bind(udpEndpoint(addr), ec);

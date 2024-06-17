@@ -40,6 +40,7 @@ public:
 	virtual Future<int> receive(uint8_t* begin, uint8_t* end) = 0;
 	virtual Future<int> receiveFrom(uint8_t* begin, uint8_t* end, NetworkAddress* sender) = 0;
 	virtual void bind(NetworkAddress const& addr) = 0;
+	virtual void set_multicast_group(NetworkAddress const& laddr, NetworkAddress const& maddr) = 0;
 
 	virtual UID getDebugID() const = 0;
 	virtual NetworkAddress localAddress() const = 0;
