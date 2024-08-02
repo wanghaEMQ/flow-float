@@ -677,10 +677,12 @@ public:
         boost::asio::ip::address bmaddr =
             boost::asio::ip::address::from_string(maddr.ip.toString(), ec);
         printf("l %s m %s\n", laddr.ip.toString().c_str(), maddr.ip.toString().c_str());
-        printf("ec %s\n", ec.what().c_str());
+        printf("ec convert ip %s\n", ec.what().c_str());
         socket.set_option(boost::asio::ip::multicast::join_group(
                     bmaddr.to_v4(), bladdr.to_v4()), ec);
-        printf("ec %s\n", ec.what().c_str());
+        printf("ec join group %s\n", ec.what().c_str());
+        socket.set_option(boost::asio::ip::multicast::enable_loopback(false), ec);
+        printf("ec disable loopback %s\n", ec.what().c_str());
     }
 
 	void bind(NetworkAddress const& addr) override {
