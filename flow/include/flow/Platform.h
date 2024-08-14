@@ -714,13 +714,13 @@ inline static void* aligned_alloc(size_t alignment, size_t size) {
 }
 #endif
 #elif defined(__FreeBSD__)
-inline static void aligned_free(void* ptr) {
+inline void aligned_free(void* ptr) {
 	free(ptr);
 }
 #elif defined(__APPLE__)
 #if !defined(HAS_ALIGNED_ALLOC)
 #include <cstdlib>
-inline static void* aligned_alloc(size_t alignment, size_t size) {
+inline void* aligned_alloc(size_t alignment, size_t size) {
 	void* ptr = nullptr;
 	posix_memalign(&ptr, alignment, size);
 	return ptr;
